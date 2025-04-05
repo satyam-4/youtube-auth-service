@@ -3,12 +3,13 @@ import pool from "../db/db.js"
 export const createUserTable = async () => {
     const queryText = `
         CREATE TABLE IF NOT EXISTS users (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
             username VARCHAR(30) NOT NULL,
             email VARCHAR(30) UNIQUE NOT NULL,
-            password VARCHAR(12) NOT NULL,
+            password TEXT NOT NULL,
             avatar TEXT,
-            coverimage TEXT DEFAULT '',
-            refreshToken TEXT DEFAULT ''
+            coverimage TEXT,
+            created_at TIMESTAMP NOT NULL DEFAULT NOW()
         )
     `
     try {
