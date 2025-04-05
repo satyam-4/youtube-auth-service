@@ -6,13 +6,13 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT NOT NULL,
     avatar TEXT,
     coverimage TEXT,
-    created_at NOT NULL DEFAULT NOW()
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
 )
 
 -- Refresh Tokens Table
 CREATE TABLE IF NOT EXISTS refresh_tokens (
     id SERIAL PRIMARY KEY,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID UNIQUE REFERENCES users(id) ON DELETE CASCADE,
     token TEXT NOT NULL UNIQUE,
     expires_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
